@@ -1,0 +1,73 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  backend-test:
+    name: Backend — lint & test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+          cache-dependency-path: backend/package-lock.json
+      - run: npm ci
+      - run: npm run lint --if-present
+      - run: npm test
+        env:
+          JWT_SECRET: ci_test_secret
+          NODE_ENV: test
+
+  frontend-test:
+    name: Frontend — lint, test & build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+      - run: npm run lint --if-present
+      - run: npm test
+      - run: npm run build
+
+  docker-build:
+    name: Build Docker images
+    needs: [backend-test, frontend-test]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build backend image
+        run: docker build -t social-platform-backend:${{ github.sha }} ./backend
+      - name: Build frontend image
+        run: docker build -t social-platform-frontend:${{ github.sha }} ./frontend
+
+  # Deploys only on pushes to main, after every prior job has succeeded.
+  # Replace the placeholder step with your actual target (Render, Railway, Fly.io, EC2, etc.)
+  deploy:
+    name: Deploy
+    needs: [docker-build]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy placeholder
+        run: |
+          echo "Add your deployment step here, e.g.:"
+          echo "  - Render/Railway deploy hook curl"
+          echo "  - docker push to a registry + SSH pull on your server"
+          echo "  - Vercel/Netlify CLI deploy for the frontend"

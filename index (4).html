@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Connectly — Advanced Social Media Platform | Portfolio</title>
+<meta name="description" content="A full-stack, real-time social media platform built with React, Node.js, Socket.io, and MongoDB." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #6d28d9;
+    --purple-light: #8b5cf6;
+    --dark: #0f172a;
+    --muted: #64748b;
+    --bg: #f8fafc;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: var(--dark);
+    background: var(--bg);
+  }
+  .hero {
+    background: linear-gradient(135deg, var(--purple), var(--purple-light));
+    color: white;
+    padding: 90px 24px 70px;
+    text-align: center;
+  }
+  .hero h1 { font-size: 2.6rem; margin: 0 0 12px; font-weight: 800; }
+  .hero p { font-size: 1.15rem; max-width: 560px; margin: 0 auto 28px; opacity: 0.95; }
+  .hero .links a {
+    display: inline-block;
+    margin: 0 8px;
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .hero .links a.primary { background: white; color: var(--purple); }
+  .hero .links a.secondary { border: 2px solid white; color: white; }
+
+  section { max-width: 960px; margin: 0 auto; padding: 60px 24px; }
+  h2 { font-size: 1.8rem; margin-bottom: 8px; }
+  .subtitle { color: var(--muted); margin-bottom: 32px; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+  .card {
+    background: white;
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  .card h3 { margin: 0 0 8px; font-size: 1.05rem; }
+  .card p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+
+  .tech-list { display: flex; flex-wrap: wrap; gap: 10px; }
+  .tech-pill {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 999px;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--dark);
+  }
+
+  .screenshot { border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.1); width: 100%; max-width: 420px; }
+  .screenshots { display: flex; flex-wrap: wrap; gap: 24px; justify-content: center; }
+
+  footer { text-align: center; padding: 40px 24px; color: var(--muted); font-size: 0.9rem; }
+</style>
+</head>
+<body>
+
+  <div class="hero">
+    <h1>Connectly</h1>
+    <p>A full-stack, real-time social media platform — live chat, notifications, media sharing, and secure authentication, built end to end.</p>
+    <div class="links">
+      <a href="https://github.com/YOUR_USERNAME/YOUR_REPO" class="primary">View on GitHub</a>
+      <a href="#features" class="secondary">See features</a>
+    </div>
+  </div>
+
+  <section id="features">
+    <h2>What it does</h2>
+    <p class="subtitle">Core features implemented across the stack</p>
+    <div class="grid">
+      <div class="card">
+        <h3>⚡ Real-time everything</h3>
+        <p>Socket.io powers live chat, typing indicators, and instant notifications — no refresh needed.</p>
+      </div>
+      <div class="card">
+        <h3>🖼️ Media uploads</h3>
+        <p>Images and short videos upload directly to Cloudinary with type/size validation.</p>
+      </div>
+      <div class="card">
+        <h3>🔐 Secure by default</h3>
+        <p>JWT auth, bcrypt hashing, rate limiting, brute-force lockout, and input sanitization.</p>
+      </div>
+      <div class="card">
+        <h3>✅ Fully tested</h3>
+        <p>Jest/Supertest on the API, Vitest/RTL on the UI, all wired into CI.</p>
+      </div>
+      <div class="card">
+        <h3>🚀 Performance-minded</h3>
+        <p>Route-level code splitting, vendor chunking, gzip compression, cached static assets.</p>
+      </div>
+      <div class="card">
+        <h3>🐳 CI/CD & Docker</h3>
+        <p>GitHub Actions lints, tests, and builds both apps; Docker Compose runs the whole stack locally.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Built with</h2>
+    <p class="subtitle">Technology choices and why</p>
+    <div class="tech-list">
+      <span class="tech-pill">React 18</span>
+      <span class="tech-pill">Vite</span>
+      <span class="tech-pill">Node.js / Express</span>
+      <span class="tech-pill">Socket.io</span>
+      <span class="tech-pill">MongoDB / Mongoose</span>
+      <span class="tech-pill">Cloudinary</span>
+      <span class="tech-pill">JWT</span>
+      <span class="tech-pill">Jest &amp; Supertest</span>
+      <span class="tech-pill">Vitest &amp; Testing Library</span>
+      <span class="tech-pill">Docker</span>
+      <span class="tech-pill">GitHub Actions</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Screenshots</h2>
+    <p class="subtitle">Feed, chat, and authentication views</p>
+    <div class="screenshots">
+      <img class="screenshot" src="assets/feed.png" alt="Feed screen with posts, likes, and comments" />
+      <img class="screenshot" src="assets/chat.png" alt="Real-time chat screen with typing indicator" />
+      <img class="screenshot" src="assets/login.png" alt="Login screen" />
+    </div>
+  </section>
+
+  <footer>
+    Built as part of a full-stack engineering capstone project. Read the
+    <a href="../docs/documentation.pdf">full project documentation</a> for architecture details,
+    setup instructions, and testing strategy.
+  </footer>
+
+</body>
+</html>

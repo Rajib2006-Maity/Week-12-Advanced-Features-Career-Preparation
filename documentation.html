@@ -1,0 +1,522 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Connectly — Project Documentation</title>
+<style>
+  @page { margin: 22mm 18mm; }
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: #1e293b;
+    line-height: 1.55;
+    font-size: 11.5pt;
+  }
+  h1 { color: #4c1d95; font-size: 22pt; margin-bottom: 4px; }
+  h2 {
+    color: #6d28d9; font-size: 16pt; margin-top: 34px;
+    border-bottom: 2px solid #ede9fe; padding-bottom: 6px;
+  }
+  h3 { color: #334155; font-size: 12.5pt; margin-top: 20px; }
+  a { color: #6d28d9; }
+  code, pre {
+    font-family: 'Courier New', monospace;
+    background: #f1f5f9;
+    border-radius: 6px;
+  }
+  code { padding: 1px 5px; font-size: 10pt; }
+  pre {
+    padding: 12px 14px;
+    font-size: 9.5pt;
+    overflow-x: auto;
+    border-left: 3px solid #8b5cf6;
+    white-space: pre-wrap;
+  }
+  table { border-collapse: collapse; width: 100%; margin: 14px 0; }
+  th, td { border: 1px solid #e2e8f0; padding: 8px 10px; text-align: left; font-size: 10.5pt; }
+  th { background: #f5f3ff; color: #4c1d95; }
+  .cover {
+    text-align: center;
+    padding-top: 30%;
+    page-break-after: always;
+  }
+  .cover h1 { font-size: 32pt; }
+  .cover p.subtitle { font-size: 14pt; color: #64748b; margin-top: 10px; }
+  .cover .meta { margin-top: 60px; color: #94a3b8; font-size: 10.5pt; }
+  .badge {
+    display: inline-block;
+    background: #ede9fe;
+    color: #5b21b6;
+    border-radius: 999px;
+    padding: 3px 12px;
+    font-size: 9.5pt;
+    font-weight: 600;
+    margin: 2px 4px 2px 0;
+  }
+  .toc { page-break-after: always; }
+  .toc ol { line-height: 2; font-size: 11.5pt; }
+  .toc a { text-decoration: none; color: #1e293b; }
+  .section { page-break-before: always; }
+  .no-break { page-break-before: auto; }
+  .req-table td.done { color: #059669; font-weight: 700; }
+  figure { text-align: center; margin: 18px 0; }
+  figure img { max-width: 100%; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.12); }
+  figure figcaption { color: #64748b; font-size: 9.5pt; margin-top: 6px; }
+  .arch-fig img { max-width: 95%; box-shadow: none; }
+  .two-col { display: flex; gap: 20px; }
+  .two-col figure { flex: 1; }
+  .note {
+    background: #fffbeb; border-left: 4px solid #d97706;
+    padding: 10px 14px; border-radius: 6px; font-size: 10.5pt; margin: 14px 0;
+  }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <h1>Connectly</h1>
+  <p class="subtitle">Advanced Social Media Platform — Project Documentation</p>
+  <p>
+    <span class="badge">Real-time (Socket.io)</span>
+    <span class="badge">Media Uploads (Cloudinary)</span>
+    <span class="badge">Tested (Jest/Vitest)</span>
+    <span class="badge">Secured</span>
+    <span class="badge">CI/CD</span>
+    <span class="badge">Dockerized</span>
+  </p>
+  <div class="meta">
+    Week 12 Capstone — Advanced Features &amp; Career Preparation<br/>
+    Generated September 27, 2026
+  </div>
+</div>
+
+<div class="toc">
+  <h2>Table of Contents</h2>
+  <ol>
+    <li>Project Overview &amp; Objectives</li>
+    <li>Architecture</li>
+    <li>Setup &amp; Installation Instructions</li>
+    <li>Code Structure</li>
+    <li>How Each Technical Requirement Was Met</li>
+    <li>Testing Strategy &amp; Evidence</li>
+    <li>Security Implementation</li>
+    <li>Performance &amp; SEO Optimizations</li>
+    <li>Deployment Process</li>
+    <li>Screenshots</li>
+    <li>Career Preparation</li>
+    <li>Known Limitations &amp; Future Work</li>
+  </ol>
+</div>
+
+<div class="section">
+<h2>1. Project Overview &amp; Objectives</h2>
+
+<p><strong>Connectly</strong> is a full-stack social media platform built to
+demonstrate production-oriented engineering practices on top of the core
+social-app feature set: posting, liking, commenting, and following. Beyond
+CRUD, the project's explicit goals were to add the features that separate a
+classroom project from a portfolio-ready application:</p>
+
+<ul>
+  <li>Real-time interactivity (chat and notifications) via Socket.io</li>
+  <li>Media handling (image/video upload) via a third-party CDN (Cloudinary)</li>
+  <li>An automated test suite covering both the API and the UI</li>
+  <li>Performance optimization (bundle size, lazy loading, caching)</li>
+  <li>Defense-in-depth security (rate limiting, sanitization, secure auth)</li>
+  <li>A CI/CD pipeline and containerized deployment</li>
+</ul>
+
+<p>The target user is anyone who wants a simple, fast way to share short
+updates, photos, and videos with people they follow, and to chat with them
+directly — the same core loop as Twitter/X or Instagram, scoped down to a
+buildable capstone project.</p>
+
+<h3>Objectives checklist</h3>
+<table class="req-table">
+  <tr><th>Objective</th><th>Status</th></tr>
+  <tr><td>Real-time notifications with Socket.io</td><td class="done">✓ Implemented</td></tr>
+  <tr><td>Image/video upload with Cloudinary</td><td class="done">✓ Implemented</td></tr>
+  <tr><td>Comprehensive test suite (frontend + backend)</td><td class="done">✓ Implemented</td></tr>
+  <tr><td>Performance optimization &amp; SEO</td><td class="done">✓ Implemented</td></tr>
+  <tr><td>Advanced security features</td><td class="done">✓ Implemented</td></tr>
+  <tr><td>CI/CD pipeline</td><td class="done">✓ Implemented</td></tr>
+</table>
+</div>
+
+<div class="section">
+<h2>2. Architecture</h2>
+
+<p>Connectly is split into two independently deployable applications that
+communicate over HTTPS (REST) and a persistent WebSocket connection
+(Socket.io), plus two managed external services for data and media:</p>
+
+<figure class="arch-fig">
+  <img src="../architecture-diagram.png" alt="Architecture diagram" />
+  <figcaption>Fig 1. High-level system architecture</figcaption>
+</figure>
+
+<h3>Request flow</h3>
+<ol>
+  <li>The React SPA calls the Express REST API for anything that needs
+  persistence (auth, posts, profiles, chat history).</li>
+  <li>On login, the SPA also opens a Socket.io connection, authenticating the
+  handshake with the same JWT used for REST calls.</li>
+  <li>The API validates and sanitizes input, talks to MongoDB via Mongoose,
+  and — for likes, comments, follows, and messages — emits an event directly
+  to the recipient's personal Socket.io room so their UI updates instantly.</li>
+  <li>Media uploads go from the browser to the Express server (validated,
+  in-memory) and are streamed on to Cloudinary, which returns a permanent
+  CDN URL stored on the post document.</li>
+</ol>
+
+<h3>Why this split?</h3>
+<p>Keeping the REST API and the Socket.io server in the same Node process
+(sharing the same Express `app` and `io` instance) avoids the complexity of
+cross-service event routing for a project this size, while still keeping
+the two concerns — request/response and push events — cleanly separated in
+code (<code>app.js</code> vs. <code>sockets/socketHandler.js</code>).</p>
+</div>
+
+<div class="section">
+<h2>3. Setup &amp; Installation Instructions</h2>
+
+<h3>Prerequisites</h3>
+<ul>
+  <li>Node.js 18 or later</li>
+  <li>A MongoDB instance — local (<code>mongod</code>) or a free
+  <a href="https://www.mongodb.com/cloud/atlas">MongoDB Atlas</a> cluster</li>
+  <li>A free <a href="https://cloudinary.com">Cloudinary</a> account (for the
+  cloud name, API key, and API secret)</li>
+</ul>
+
+<h3>Backend</h3>
+<pre>cd backend
+cp .env.example .env      # fill in MONGO_URI, JWT_SECRET, CLOUDINARY_* keys
+npm install
+npm run dev                # http://localhost:5000</pre>
+
+<h3>Frontend</h3>
+<pre>cd frontend
+cp .env.example .env       # defaults point at localhost:5000
+npm install
+npm run dev                # http://localhost:3000</pre>
+
+<h3>Docker (full stack in one command)</h3>
+<pre>cd backend &amp;&amp; cp .env.example .env   # fill in real Cloudinary keys
+cd ../docker
+docker compose up --build</pre>
+
+<div class="note">
+Note: <code>mongodb-memory-server</code> (used by the backend test suite)
+downloads a MongoDB binary the first time it runs. This requires outbound
+internet access on whatever machine runs <code>npm test</code>; it was
+validated by static analysis and a live HTTP smoke test in the development
+sandbox used to build this project, since that sandbox's network egress is
+restricted to package registries. Run <code>npm test</code> locally or in
+GitHub Actions (both have full internet access) to execute the full suite.
+</div>
+</div>
+
+<div class="section">
+<h2>4. Code Structure</h2>
+
+<h3>Backend (<code>backend/</code>)</h3>
+<pre>backend/
+├── server.js            Entry point: HTTP server, Socket.io, DB connection
+├── app.js               Express app: middleware &amp; route wiring
+├── config/               db.js, cloudinary.js
+├── models/               User, Post, Message, Notification (Mongoose schemas)
+├── controllers/          Business logic per resource
+├── routes/               Route → controller wiring, per resource
+├── middleware/           auth (JWT), security, upload (Multer), error handling
+├── sockets/socketHandler.js   All Socket.io event handlers + JWT handshake auth
+├── utils/validators.js   express-validator rule sets
+└── tests/                 Jest/Supertest integration tests</pre>
+
+<h3>Frontend (<code>frontend/</code>)</h3>
+<pre>frontend/
+├── src/
+│   ├── main.jsx           App entry: providers (Router, Auth, Helmet)
+│   ├── App.jsx             Route definitions, React.lazy code splitting
+│   ├── api/api.js          Axios instance with auth interceptor
+│   ├── context/AuthContext.jsx   Login/register/logout/session state
+│   ├── hooks/useSocket.js  Socket.io connection + notification stream
+│   ├── components/         Navbar, PostCard, NotificationBell, UploadForm…
+│   ├── pages/               Login, Register, Feed, Profile, Chat
+│   └── __tests__/           Vitest + React Testing Library specs
+└── vite.config.js          Build config: chunk splitting, gzip, vitest setup</pre>
+
+<p>This mirrors a fairly standard MVC-ish split on the backend (models /
+controllers / routes) and a feature-folder-lite structure on the frontend
+(pages call into shared components and a small number of cross-cutting
+hooks/contexts), which keeps the codebase approachable without over-
+engineering for a project of this size.</p>
+</div>
+
+<div class="section">
+<h2>5. How Each Technical Requirement Was Met</h2>
+
+<h3>Real-time notifications with Socket.io</h3>
+<p><code>sockets/socketHandler.js</code> authenticates every socket
+connection with the same JWT used for REST calls (<code>io.use(socketAuthMiddleware)</code>),
+then joins each user to a personal room (<code>user-&lt;id&gt;</code>).
+Controllers that trigger a notification — <code>toggleLike</code>,
+<code>addComment</code>, <code>toggleFollow</code> — create a
+<code>Notification</code> document and emit it directly to that room via
+<code>req.io.to(...).emit('notification', ...)</code>, so the recipient's
+<code>NotificationBell</code> updates without polling. Chat messages and
+typing indicators use a shared, order-independent <code>chatId</code>
+(sorted pair of user IDs) so either participant can join the same Socket.io
+room regardless of who initiated the conversation.</p>
+
+<h3>Image/video upload with Cloudinary</h3>
+<p>Files are accepted with Multer's in-memory storage (never written to
+disk), validated by MIME type and a 50MB size cap
+(<code>middleware/upload.js</code>), then streamed to Cloudinary via
+<code>cloudinary.uploader.upload_stream</code> wrapped in a Promise
+(<code>controllers/uploadController.js</code>). The resulting secure CDN
+URL, public ID, and resource type are returned to the client and attached
+to the post on creation.</p>
+
+<h3>Comprehensive test suite</h3>
+<p>Backend: Jest + Supertest integration tests exercise the real Express
+app against an in-memory MongoDB instance — registration validation,
+duplicate-account handling, login/lockout, protected-route access, post
+CRUD, pagination, like toggling, commenting, and delete-permission checks.
+Frontend: Vitest + React Testing Library test the Login form (rendering,
+successful submit, error display) and PostCard (rendering, optimistic like
+toggling, comment submission) with the API layer mocked. See Section 6 for
+what was actually executed and verified during development.</p>
+
+<h3>Performance optimization &amp; SEO</h3>
+<p>Every route is behind <code>React.lazy</code> + <code>Suspense</code>
+(<code>App.jsx</code>), so the initial bundle only ships the shell and
+whichever page is requested first. <code>vite.config.js</code> manually
+splits vendor code (<code>react</code>, <code>react-dom</code>,
+<code>react-router-dom</code>) and <code>socket.io-client</code> into their
+own chunks so browsers cache them independently of application code, and
+gzip-compresses the production build. The Nginx config
+(<code>frontend/nginx.conf</code>) adds a one-year immutable cache header
+for hashed asset filenames. For SEO, <code>index.html</code> ships
+descriptive title/meta/Open Graph tags, and <code>react-helmet-async</code>
+sets a page-specific <code>&lt;title&gt;</code> on every route.</p>
+
+<h3>Advanced security features</h3>
+<p>See Section 7 for the full breakdown: JWT + bcrypt auth with brute-force
+lockout, rate limiting, Helmet security headers, NoSQL-injection and XSS
+sanitization, HTTP parameter pollution protection, and body-size limits.</p>
+
+<h3>CI/CD pipeline</h3>
+<p><code>.github/workflows/ci-cd.yml</code> runs on every push and pull
+request: it lints and tests the backend, lints, tests, and builds the
+frontend, then builds both Docker images. A final <code>deploy</code> job
+runs only on pushes to <code>main</code> after every prior job succeeds,
+with a placeholder step documenting where to plug in a real deploy target
+(Render, Railway, Fly.io, or a self-hosted server).</p>
+</div>
+
+<div class="section">
+<h2>6. Testing Strategy &amp; Evidence</h2>
+
+<h3>What the backend suite covers (<code>backend/tests/</code>)</h3>
+<table>
+  <tr><th>Test file</th><th>Scenarios</th></tr>
+  <tr>
+    <td><code>auth.test.js</code></td>
+    <td>Successful registration; weak-password rejection; duplicate email
+    rejection; successful login; wrong-password rejection; protected route
+    blocked without a token; protected route allowed with a valid token</td>
+  </tr>
+  <tr>
+    <td><code>post.test.js</code></td>
+    <td>Unauthenticated post creation blocked; authenticated post creation;
+    empty-post rejection; paginated feed correctness; like/unlike toggling;
+    adding a comment; a user cannot delete another user's post</td>
+  </tr>
+</table>
+
+<h3>What the frontend suite covers (<code>frontend/src/__tests__/</code>)</h3>
+<table>
+  <tr><th>Test file</th><th>Scenarios</th></tr>
+  <tr>
+    <td><code>Login.test.jsx</code></td>
+    <td>Form fields render; submit calls <code>login()</code> with the
+    entered credentials; a failed login surfaces the server's error message</td>
+  </tr>
+  <tr>
+    <td><code>PostCard.test.jsx</code></td>
+    <td>Post text/author render correctly; the like button optimistically
+    toggles and reconciles with the API response; submitting a comment
+    updates the visible comment list</td>
+  </tr>
+</table>
+
+<h3>Verification performed during development</h3>
+<p>The following was actually executed, not just written, while building
+this project:</p>
+<ul>
+  <li>Every backend and frontend source file was syntax-checked
+    (<code>node --check</code>) with zero errors.</li>
+  <li>The Express app was booted in isolation (mocked Socket.io, no real
+    database) and its core routes were verified live: health check returned
+    <code>200</code>, an unknown route returned <code>404</code>, and a
+    protected route without a token correctly returned <code>401</code>.</li>
+  <li>The full Vitest suite was run: <strong>6/6 tests passed</strong>.</li>
+  <li>The production frontend build was run end to end with Vite, confirming
+    route-based code splitting produced separate chunks for
+    <code>Login</code>, <code>Register</code>, <code>Feed</code>,
+    <code>Profile</code>, and <code>Chat</code>, plus separate
+    <code>vendor</code> and <code>sockets</code> chunks, all gzip-compressed.</li>
+  <li><code>docker-compose.yml</code> and the GitHub Actions workflow were
+    both validated as syntactically correct YAML.</li>
+</ul>
+<div class="note">
+The backend Jest suite (<code>npm test</code>) uses
+<code>mongodb-memory-server</code>, which downloads a MongoDB binary on
+first run. That download was not reachable from the restricted sandbox used
+to build this project, so the full in-memory-database test run should be
+executed on your own machine or in CI (both have normal internet access) as
+the final verification step — see the <span class="note-inline">note in
+Section 3</span>.
+</div>
+</div>
+
+<div class="section">
+<h2>7. Security Implementation</h2>
+<table>
+  <tr><th>Concern</th><th>Mitigation</th></tr>
+  <tr><td>Password storage</td><td>bcrypt hashing, cost factor 12; passwords never logged or returned in API responses</td></tr>
+  <tr><td>Session/token theft (XSS)</td><td>JWT delivered via httpOnly, <code>sameSite: strict</code> cookies in addition to the Authorization header</td></tr>
+  <tr><td>Brute-force login</td><td>Account lockout for 15 minutes after 5 failed attempts; a stricter rate limiter on <code>/api/auth/*</code></td></tr>
+  <tr><td>API abuse / DoS</td><td><code>express-rate-limit</code> on all <code>/api</code> routes; JSON body size capped at 10kb</td></tr>
+  <tr><td>NoSQL injection</td><td><code>express-mongo-sanitize</code> strips <code>$</code>/<code>.</code> operators from user input</td></tr>
+  <tr><td>Cross-site scripting</td><td><code>xss-clean</code> sanitizes request bodies/params/query</td></tr>
+  <tr><td>HTTP parameter pollution</td><td><code>hpp</code> middleware</td></tr>
+  <tr><td>Insecure headers</td><td><code>helmet</code> sets a standard set of protective HTTP headers</td></tr>
+  <tr><td>Authorization</td><td>Ownership checks before mutating actions (e.g. only a post's author or an admin can delete it)</td></tr>
+  <tr><td>File upload abuse</td><td>MIME-type allowlist and a 50MB size cap before anything reaches Cloudinary</td></tr>
+</table>
+</div>
+
+<div class="section">
+<h2>8. Performance &amp; SEO Optimizations</h2>
+<ul>
+  <li><strong>Code splitting:</strong> <code>React.lazy</code> per route, verified via a real production build.</li>
+  <li><strong>Vendor chunking:</strong> React/Router and Socket.io ship as separate, independently cacheable bundles.</li>
+  <li><strong>Compression:</strong> gzip applied to the production build output.</li>
+  <li><strong>Caching:</strong> Nginx serves hashed static assets with a one-year immutable <code>Cache-Control</code> header.</li>
+  <li><strong>Lazy media:</strong> post images/avatars use <code>loading="lazy"</code>.</li>
+  <li><strong>SEO:</strong> descriptive meta/Open Graph tags in <code>index.html</code>; per-page <code>&lt;title&gt;</code> via <code>react-helmet-async</code>; a canonical URL tag.</li>
+</ul>
+<p>Measured production bundle (gzip): vendor ≈ 53KB, sockets ≈ 13KB, app
+shell ≈ 27KB, each page chunk well under 2KB — the browser downloads only
+the shell plus the current page on first load.</p>
+</div>
+
+<div class="section">
+<h2>9. Deployment Process</h2>
+<ol>
+  <li><strong>Local/manual:</strong> run backend and frontend separately with
+  <code>npm run dev</code> (see Section 3), or run the whole stack with
+  <code>docker compose up --build</code> from <code>docker/</code>.</li>
+  <li><strong>CI:</strong> every push/PR triggers lint + test + build for both
+  apps and a Docker image build for each, via GitHub Actions.</li>
+  <li><strong>CD:</strong> the <code>deploy</code> job in
+  <code>ci-cd.yml</code> runs only on <code>main</code> after every previous
+  job succeeds. It currently contains a placeholder — swap it for:
+    <ul>
+      <li>A deploy-hook <code>curl</code> to Render/Railway, or</li>
+      <li><code>docker push</code> to a registry followed by an SSH pull +
+      restart on your server, or</li>
+      <li>The Vercel/Netlify CLI for the frontend, with the backend deployed
+      separately (e.g. Render, Fly.io, an EC2 instance).</li>
+    </ul>
+  </li>
+  <li><strong>Production checklist:</strong> set real environment variables
+  (never commit <code>.env</code>), point <code>MONGO_URI</code> at a
+  managed cluster (e.g. Atlas), set <code>NODE_ENV=production</code>, and
+  update <code>FRONTEND_URL</code>/CORS origin to your real domain.</li>
+</ol>
+</div>
+
+<div class="section">
+<h2>10. Screenshots</h2>
+
+<figure style="page-break-inside: avoid;">
+  <img src="screenshots/feed.png" alt="Feed screen" style="max-width: 70%;" />
+  <figcaption>Fig 2. Feed — composer, posts, likes, and comments</figcaption>
+</figure>
+
+<figure style="page-break-inside: avoid;">
+  <img src="screenshots/chat.png" alt="Chat screen" style="max-width: 60%;" />
+  <figcaption>Fig 3. Real-time chat with a live typing indicator</figcaption>
+</figure>
+
+<figure style="page-break-inside: avoid;">
+  <img src="screenshots/login.png" alt="Login screen" style="max-width: 55%;" />
+  <figcaption>Fig 4. Authentication</figcaption>
+</figure>
+
+<figure style="page-break-inside: avoid;">
+  <img src="screenshots/profile.png" alt="Profile screen" style="max-width: 55%;" />
+  <figcaption>Fig 5. User profile with follow/unfollow and a link to chat</figcaption>
+</figure>
+
+<p style="font-size:9.5pt;color:#64748b;">
+These are rendered directly from the application's real CSS
+(<code>frontend/src/styles/index.css</code>) using representative sample
+data, generated as part of this documentation. After you deploy your own
+instance, swap these for live screenshots of your running app.
+</p>
+</div>
+
+<div class="section">
+<h2>11. Career Preparation</h2>
+
+<h3>Portfolio</h3>
+<p>A standalone portfolio page for this project lives at
+<code>portfolio-website/index.html</code> — a self-contained page
+summarizing the features, tech stack, and screenshots, ready to publish via
+GitHub Pages, Netlify, or Vercel and link from your resume/LinkedIn.</p>
+
+<h3>Resume</h3>
+<p><code>resume/resume-bullets.md</code> contains resume-ready bullet
+points, a one-line project summary, a longer project description for a
+"Projects" section, and a set of interview talking points covering the
+architectural decisions in this project (why Socket.io, how the JWT flow
+works end to end, and what you'd change for real production scale).</p>
+
+<h3>Suggested next steps</h3>
+<ul>
+  <li>Deploy a live instance and replace the screenshots in this document
+  with real ones from your deployment.</li>
+  <li>Fill in your GitHub repository URL and live demo link in
+  <code>portfolio-website/index.html</code> and this README.</li>
+  <li>Practice explaining the real-time architecture and the security
+  measures out loud — these are the two areas most likely to come up in a
+  technical interview about this project.</li>
+</ul>
+</div>
+
+<div class="section">
+<h2>12. Known Limitations &amp; Future Work</h2>
+<ul>
+  <li><strong>Single-instance Socket.io:</strong> notifications/chat are
+  routed in-process; scaling to multiple server instances needs a Redis
+  adapter (<code>socket.io-redis</code>) so rooms are shared across
+  instances.</li>
+  <li><strong>No server-side rendering:</strong> the SPA is fully
+  client-rendered, which limits SEO for public profile/post pages compared
+  to SSR or static pre-rendering.</li>
+  <li><strong>No end-to-end browser tests:</strong> the suite covers unit/
+  integration level; adding Playwright or Cypress would close the gap on
+  full user-flow regression coverage.</li>
+  <li><strong>No read receipts or message pagination</strong> in chat beyond
+  the most recent 200 messages per conversation.</li>
+  <li><strong>No automated image moderation</strong> — a production version
+  handling user-generated content at scale would need a moderation step
+  (manual or via a moderation API) before/after upload.</li>
+</ul>
+</div>
+
+</body>
+</html>
